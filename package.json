@@ -1,7 +1,7 @@
 {
   "name": "wobble-transition",
   "version": "0.1.0",
-  "homepage":".",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@react-spring/three": "^9.0.0-rc.3",
@@ -15,6 +15,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-intersection-observer": "^8.28.5",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-spring": "^8.0.27",
     "react-three-fiber": "^4.2.21",
