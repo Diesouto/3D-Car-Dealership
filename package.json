@@ -1,6 +1,7 @@
 {
   "name": "wobble-transition",
   "version": "0.1.0",
+  "homepage":".",
   "private": true,
   "dependencies": {
     "@react-spring/three": "^9.0.0-rc.3",
