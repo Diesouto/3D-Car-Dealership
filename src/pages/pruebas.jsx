@@ -20,7 +20,15 @@ function Model({ url }) {
   const props = useSpring({
     scale: expand ? [1.4, 1.4, 1.4] : [1, 1, 1],
   });
-  return <primitive object={gltf.scene} dispose={null} />;
+  // return <primitive object={gltf.scene} dispose={null} />;
+  return (
+    <a.mesh
+      onClick={() => setExpand(!expand)}
+      scale={props.scale}
+      castShadow>
+      <primitive object={gltf.scene} dispose={null} />
+    </a.mesh>
+  );
 }
 
 const Lights = () => {
