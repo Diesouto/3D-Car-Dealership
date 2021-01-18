@@ -5,6 +5,7 @@ import Header from "./components/header";
 import Products from './pages/products';
 import Index from './pages/index';
 import Car from './pages/car';
+import Pruebas from "./pages/pruebas";
 
 class App extends Component {
   constructor() {
@@ -17,10 +18,13 @@ render() {
     <Route exact path="/">
       <Index/>  
     </Route> 
-    <Route path="/:products">
+    <Route path="/products">
       <Products/>  
+    </Route>
+    <Route path="/contact">
+      <Pruebas/>
     </Route> 
-    <Route path="/:car">
+    <Route path="/car">
       <Car/>
     </Route>
   </Router>
