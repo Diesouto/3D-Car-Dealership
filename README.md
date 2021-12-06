@@ -1,8 +1,16 @@
-# 3D-Car-Dealership
-This is my Web Application Development (DAW) graduation project.
+# Three.js Journey
 
-Web application for a car dealership that makes use of 3D car models.
-This lets the user select, rotate and customize the desired car.
+## Setup
+Download [Node.js](https://nodejs.org/en/download/).
+Run this followed commands:
 
-## Technologies
-React and Three.js
+``` bash
+# Install dependencies (only the first time)
+npm install
+
+# Run the local server at localhost:8080
+npm run dev
+
+# Build for production in the dist/ directory
+npm run build
+```
