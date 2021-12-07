@@ -25,6 +25,22 @@ body,
     flex: 1 1 50%;
 }
 
+.selector-container {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+  
+    display: flex;
+    align-items: center;
+}
+
+.selector-container>ul {
+    width: 100%;
+}
+
+.selector-height {
+    height: 10em;
+}
+
 .webgl {
     width: 100%!important;
     height: 100%!important;
@@ -33,3 +49,10 @@ body,
 .model-container {
     background-color: lightblue;
 }
+
+.box-button {
+    border: 1px outset white;
+    height:4em;
+    width:4em;
+    cursor:pointer;
+  }

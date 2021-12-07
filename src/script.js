@@ -91,19 +91,7 @@ scene.add(mesh);
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 1, 1000);
-
-// const aspectRatio = sizes.width / sizes.height;
-// const camera = new THREE.OrthographicCamera(-1 * aspectRatio,
-//                                              1 * aspectRatio,
-//                                              1,
-//                                              -1,
-//                                              0.1,
-//                                              100
-//                                             );
-
-// camera.position.x = 2;
-// camera.position.y = 2;
-camera.position.z = 3;
+camera.position.z = 4;
 
 camera.lookAt(mesh.position)
 scene.add(camera)
@@ -111,11 +99,6 @@ scene.add(camera)
 // Controls 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-// controls.target.y = 2;
-// controls.update();
-
-// Clock
-const clock = new THREE.Clock(); 
 
 // Animation
 const tick = () => {
@@ -126,6 +109,38 @@ const tick = () => {
 
     // Call each tick
     window.requestAnimationFrame(tick);
+}
+
+// Selector events
+window.changeColor = function(color) {
+    switch(color) {
+        case 'red':
+            mesh.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            break;
+        case 'yellow':
+            mesh.material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            break;
+        case 'green':
+            mesh.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            break;
+    }
+}
+
+window.changeSize = function(size) {
+    switch(size) {
+        case '14':
+            mesh.geometry = new THREE.BoxGeometry(0.7, 0.7, 0.7, 5, 5, 5);
+            break;
+        case '15':
+            mesh.geometry = new THREE.BoxGeometry(1, 1, 1, 5, 5, 5);
+            break;
+        case '16':
+            mesh.geometry = new THREE.BoxGeometry(1.3, 1.3, 1.3, 5, 5, 5);
+            break;
+        case '17':
+            mesh.geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5, 5, 5, 5);
+            break;
+    }
 }
 
 tick();
