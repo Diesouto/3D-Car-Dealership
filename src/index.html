@@ -15,7 +15,7 @@
             <div class="selector-container">
                 <ul class="list-group">
                     <!-- Selector color pintura -->
-                    <li class="list-group-item selector-height">
+                    <li class="list-group-item selector-height border-0">
                         <h5>Pintura</h5>
                         <ul class="list-group list-group-horizontal">
                             <li class="list-group-item border-0">
@@ -30,33 +30,33 @@
                         </ul>
                     </li>
                     <!-- Selector tamaño llanta -->
-                    <li class="list-group-item selector-height">
+                    <li class="list-group-item selector-height border-0 mt-2">
                         <h5>Ruedas</h5>
-                        <p class="small text-muted">Tamaño</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input m-0" type="checkbox" id="chk14" value="14" onclick="changeSize('14')">
+                        <p class="small text-muted">tamaño</p>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input m-0" type="radio" id="chk14" name="rimSize" value="14" onclick="changeSize('14')">
                             <br/>
-                            <label class="form-check-label" for="chk14">14''</label>
+                            <label class="form-check-label text-muted-light" style="font-size: 20px;" for="chk14">14''</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input m-0" type="checkbox" id="chk15" value="15" onclick="changeSize('15')" checked>
+                            <input class="form-check-input m-0" type="radio" id="chk15" name="rimSize" value="15" onclick="changeSize('15')" checked>
                             <br/>
-                            <label class="form-check-label text-muted" style="font-size: 20px;" for="chk15">15''</label>
+                            <label class="form-check-label font-weight-bold" style="font-size: 25px;" for="chk15">15''</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input m-0" type="checkbox" id="chk16" value="16" onclick="changeSize('16')">
+                            <input class="form-check-input m-0" type="radio" id="chk16" name="rimSize" value="16" onclick="changeSize('16')">
                             <br/>
-                            <label class="form-check-label text-muted" style="font-size: 25px;" for="chk16">16''</label>
+                            <label class="form-check-label text-muted-light" style="font-size: 30px;" for="chk16">16''</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input m-0" type="checkbox" id="chk17" value="17" onclick="changeSize('17')">
+                            <input class="form-check-input m-0" type="radio" id="chk17" name="rimSize" value="17" onclick="changeSize('17')">
                             <br/>
-                            <label class="form-check-label text-muted" style="font-size: 30px;" for="chk17">17''</label>
+                            <label class="form-check-label text-muted-light" style="font-size: 35px;" for="chk17">17''</label>
                         </div>
                     </li>
                     <!-- Selector color ruedas -->
-                    <li class="list-group-item selector-height">
-                        <h5>Color</h5>
+                    <li class="list-group-item selector-height border-0 mt-2">
+                        <p class="small text-muted">color</p>
                         <ul class="list-group list-group-horizontal">
                             <li class="list-group-item border-0"><button class="box-button bg-muted">Gris</button></li>
                             <li class="list-group-item border-0"><button class="box-button bg-dark text-white">Negro</button></li>
@@ -68,6 +68,7 @@
             <!-- Contenedor modelo 3D -->
             <div class="model-container">
                 <canvas class="webgl"></canvas>
+                <div id="cooltext">style</div>
             </div>
         </div>
     </div>

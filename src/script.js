@@ -63,7 +63,8 @@ window.addEventListener('dblclick', () =>
 // Renderer
 const canvas = document.querySelector('.webgl');
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    alpha: true
 });
 renderer.setSize(sizes.width, sizes.height);
 
@@ -80,7 +81,7 @@ window.addEventListener('mousemove', (event) => {
 
 // Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color( 0xadd8e6 );
+// scene.background = new THREE.Color( 0xadd8e6 );
 
 // Object
 const mesh = new THREE.Mesh(
