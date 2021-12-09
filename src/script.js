@@ -95,36 +95,37 @@ scene.background = new THREE.Color( 0xadd8e6 );
 // Texture
 const loadingManager = new THREE.LoadingManager();
 const textureLoader = new THREE.TextureLoader(loadingManager);
+textureLoader.setCrossOrigin('anonymous');
 
 // Texturas fuera
-var colorTextureBody = textureLoader.load('/textures/Cadillac/Body_Base_Color.png');
+var colorTextureBody = textureLoader.load('./textures/Cadillac/Body_Base_Color.png');
 colorTextureBody.generateMipmaps = false;
 colorTextureBody.minFilter = THREE.NearestFilter;
 colorTextureBody.magFilter = THREE.NearestFilter;
-var heightTextureBody = textureLoader.load('/textures/Cadillac/Body_Height.png');
-var normalTextureBody = textureLoader.load('/textures/Cadillac/Body_Normal.png');
-var metalnessTextureBody = textureLoader.load('/textures/Cadillac/Body_Metallic.png');
-var roughnessTextureBody = textureLoader.load('/textures/Cadillac/Body_Roughness.png');
+var heightTextureBody = textureLoader.load('./textures/Cadillac/Body_Height.png');
+var normalTextureBody = textureLoader.load('./textures/Cadillac/Body_Normal.png');
+var metalnessTextureBody = textureLoader.load('./textures/Cadillac/Body_Metallic.png');
+var roughnessTextureBody = textureLoader.load('./textures/Cadillac/Body_Roughness.png');
 
 // Texturas cristal
-var colorTextureGlass = textureLoader.load('/textures/Cadillac/Glass_Base_Color.png');
+var colorTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Base_Color.png');
 colorTextureGlass.generateMipmaps = false;
 colorTextureGlass.minFilter = THREE.NearestFilter;
 colorTextureGlass.magFilter = THREE.NearestFilter;
-var heightTextureGlass = textureLoader.load('/textures/Cadillac/Glass_Height.png');
-var normalTextureGlass = textureLoader.load('/textures/Cadillac/Glass_Normal.png');
-var metalnessTextureGlass = textureLoader.load('/textures/Cadillac/Glass_Metallic.png');
-var roughnessTextureGlass = textureLoader.load('/textures/Cadillac/Glass_Roughness.png');
+var heightTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Height.png');
+var normalTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Normal.png');
+var metalnessTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Metallic.png');
+var roughnessTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Roughness.png');
 
 // Texturas dentro
-var colorTextureInterior = textureLoader.load('/textures/Cadillac/Interior_Base_Color.png');
+var colorTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Base_Color.png');
 colorTextureInterior.generateMipmaps = false;
 colorTextureInterior.minFilter = THREE.NearestFilter;
 colorTextureInterior.magFilter = THREE.NearestFilter;
-var heightTextureInterior = textureLoader.load('/textures/Cadillac/Interior_Height.png');
-var normalTextureInterior = textureLoader.load('/textures/Cadillac/Interior_Normal.png');
-var metalnessTextureInterior = textureLoader.load('/textures/Cadillac/Interior_Metallic.png');
-var roughnessTextureInterior = textureLoader.load('/textures/Cadillac/Interior_Roughness.png');
+var heightTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Height.png');
+var normalTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Normal.png');
+var metalnessTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Metallic.png');
+var roughnessTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Roughness.png');
 
 // Array de elementos
 var texturasBase = new Array();
@@ -140,8 +141,9 @@ texturasRoughness.push(roughnessTextureBody, roughnessTextureInterior, roughness
 
 //Geometry
 const objLoader = new OBJLoader()
+objLoader.setCrossOrigin('anonymous');
 objLoader.load(
-    '/models/Car/cadillac.obj',
+    './models/Car/cadillac.obj',
     (obj) =>
     {
         //obj.scene.scale.set(0.025, 0.025, 0.025)
@@ -224,12 +226,12 @@ tick();
 
 
 // GUI
-const gui = new dat.GUI({ closed: true, width: 400 });
-const cameraFolder = gui.addFolder('Camera')
-cameraFolder.add(camera.position, 'x', 0, 10)
-cameraFolder.add(camera.position, 'y', 0, 10)
-cameraFolder.add(camera.position, 'z', 0, 10)
-cameraFolder.open()
-const sceneFolder = gui.addFolder('scene')
-sceneFolder.add(scene.position, 'z', 0, 10)
-sceneFolder.open()
+// const gui = new dat.GUI({ closed: true, width: 400 });
+// const cameraFolder = gui.addFolder('Camera')
+// cameraFolder.add(camera.position, 'x', 0, 10)
+// cameraFolder.add(camera.position, 'y', 0, 10)
+// cameraFolder.add(camera.position, 'z', 0, 10)
+// cameraFolder.open()
+// const sceneFolder = gui.addFolder('scene')
+// sceneFolder.add(scene.position, 'z', 0, 10)
+// sceneFolder.open()
