@@ -191,16 +191,30 @@ const tick = () => {
 }
 
 // Selector events
-window.changeColor = function(color) {
+window.changeColorBody = function(color) {
     switch(color) {
         case 'red':
-            mesh.material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
             break;
         case 'yellow':
-            mesh.material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
             break;
         case 'green':
-            mesh.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            break;
+    }
+}
+
+window.changeColorRim = function(color) {
+    switch(color) {
+        case 'gris':
+            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            break;
+        case 'negro':
+            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            break;
+        case 'dorado':
+            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
             break;
     }
 }
@@ -223,6 +237,8 @@ window.changeSize = function(size) {
 }
 
 tick();
+
+console.log(scene)
 
 
 // GUI
