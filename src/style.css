@@ -22,18 +22,26 @@ body,
 
 
 @media (max-width: 700px) {
+    body {
+        overflow: scroll;
+        max-width: 100vh;
+    }
+
     .container-fluid {
         height: auto;
     }
 
     .flex-container {
         display: flex;
+        flex-wrap: wrap;
         width: 100%;
         flex-shrink: 0;
     }
 
     .selector-container {
         flex: 1 1 100%;
+        min-height: auto !important;
+        align-items: baseline !important;
     }
     
     .model-container {
