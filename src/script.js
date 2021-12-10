@@ -3,8 +3,7 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import * as dat from 'dat.gui';
+import { TextureLoader, Vector3 } from 'three';
 
 // Sizes
 const container = document.querySelector('.model-container');
@@ -68,6 +67,7 @@ const renderer = new THREE.WebGLRenderer({
     alpha: true
 });
 renderer.setSize(sizes.width, sizes.height);
+renderer.outputEncoding = THREE.sRGBEncoding;
 
 // Cursor
 const cursor = {
@@ -85,79 +85,24 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xadd8e6 );
 
 // Light
- const ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
- scene.add(ambientLight)
+const ambientLight = new THREE.AmbientLight( 0x404040, 10 )
+scene.add(ambientLight)
 
 /*
 *   3D Object
 */
 
-// Texture
-const loadingManager = new THREE.LoadingManager();
-const textureLoader = new THREE.TextureLoader(loadingManager);
-textureLoader.setCrossOrigin('anonymous');
+// Loaders
+const textureLoader = new THREE.TextureLoader();
+const gltfLoader = new GLTFLoader()
+gltfLoader.setCrossOrigin('anonymous');
 
-// Texturas fuera
-var colorTextureBody = textureLoader.load('./textures/Cadillac/Body_Base_Color.png');
-colorTextureBody.generateMipmaps = false;
-colorTextureBody.minFilter = THREE.NearestFilter;
-colorTextureBody.magFilter = THREE.NearestFilter;
-var heightTextureBody = textureLoader.load('./textures/Cadillac/Body_Height.png');
-var normalTextureBody = textureLoader.load('./textures/Cadillac/Body_Normal.png');
-var metalnessTextureBody = textureLoader.load('./textures/Cadillac/Body_Metallic.png');
-var roughnessTextureBody = textureLoader.load('./textures/Cadillac/Body_Roughness.png');
-
-// Texturas cristal
-var colorTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Base_Color.png');
-colorTextureGlass.generateMipmaps = false;
-colorTextureGlass.minFilter = THREE.NearestFilter;
-colorTextureGlass.magFilter = THREE.NearestFilter;
-var heightTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Height.png');
-var normalTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Normal.png');
-var metalnessTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Metallic.png');
-var roughnessTextureGlass = textureLoader.load('./textures/Cadillac/Glass_Roughness.png');
-
-// Texturas dentro
-var colorTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Base_Color.png');
-colorTextureInterior.generateMipmaps = false;
-colorTextureInterior.minFilter = THREE.NearestFilter;
-colorTextureInterior.magFilter = THREE.NearestFilter;
-var heightTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Height.png');
-var normalTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Normal.png');
-var metalnessTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Metallic.png');
-var roughnessTextureInterior = textureLoader.load('./textures/Cadillac/Interior_Roughness.png');
-
-// Array de elementos
-var texturasBase = new Array();
-var texturasHeight = new Array();
-var texturasNormal = new Array();
-var texturasMetalness = new Array();
-var texturasRoughness = new Array();
-texturasBase.push(colorTextureBody, colorTextureInterior, colorTextureGlass);
-texturasHeight.push(heightTextureBody, heightTextureInterior, heightTextureGlass);
-texturasNormal.push(normalTextureBody, normalTextureInterior, normalTextureGlass);
-texturasMetalness.push(metalnessTextureBody, metalnessTextureInterior, metalnessTextureGlass);
-texturasRoughness.push(roughnessTextureBody, roughnessTextureInterior, roughnessTextureGlass);
-
-//Geometry
-const objLoader = new OBJLoader()
-objLoader.setCrossOrigin('anonymous');
-objLoader.load(
-    './models/Car/cadillac.obj',
-    (obj) =>
+// Geometry - Camaro
+gltfLoader.load(
+    './models/Camaro/scene.gltf',
+    (gltf) =>
     {
-        //obj.scene.scale.set(0.025, 0.025, 0.025)
-        
-        for(var i = 0; i < 3; i++) {
-            // obj.children[i].geometry.center() // centra el mesh
-            obj.children[i].material = new THREE.MeshBasicMaterial({ map: texturasBase[i] }); // añade el material
-            obj.children[i].heightTexture = texturasHeight[i];
-            obj.children[i].normalTexture = texturasNormal[i];
-            obj.children[i].metalnessTexture = texturasMetalness[i];
-            obj.children[i].roughnessTexture = texturasRoughness[i];
-        }
-        
-        scene.add(obj)
+        scene.add(gltf.scene)
     },
 	// called while loading is progressing
 	function ( xhr ) {
@@ -171,7 +116,7 @@ objLoader.load(
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 2000)
-camera.position.set(400, 130, 7)
+camera.position.set(0, 0, 2)
 scene.add(camera)
 
 // Controls 
@@ -192,62 +137,79 @@ const tick = () => {
 
 // Selector events
 window.changeColorBody = function(color) {
+    var material;
+    var texture;
+
     switch(color) {
         case 'red':
-            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            scene.children[3].children[0].material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
             break;
         case 'yellow':
-            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            scene.children[3].children[0].material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
             break;
         case 'green':
-            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            scene.children[3].children[0].material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
             break;
     }
 }
 
 window.changeColorRim = function(color) {
+    var material;
+    var texture;
+
     switch(color) {
         case 'gris':
-            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            texture = textureLoader.load( './models/Camaro/textures/RIMMUSCLE_01_baseColor.png' );
+            texture.encoding = THREE.sRGBEncoding;
+            texture.flipY = false;
+            material = new THREE.MeshBasicMaterial({ map: texture });
             break;
         case 'negro':
-            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            material = new THREE.MeshBasicMaterial({ color: 0x000000 });
             break;
         case 'dorado':
-            scene.children[2].children[0].material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            material = new THREE.MeshBasicMaterial({ color: 0xDAC02A });
             break;
     }
+    
+    var rims = new Array()
+    rims.push(scene.getObjectByName("Wheel_FL_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_FR_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_RL_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_RR_RIMMUSCLE_01_0"))
+    rims.forEach(rim => {
+        rim.material = material;
+    });
 }
 
 window.changeSize = function(size) {
+    var scale = new Vector3;
+
     switch(size) {
         case '14':
-            mesh.geometry = new THREE.BoxGeometry(0.7, 0.7, 0.7, 5, 5, 5);
+            scale.set(0.98, 0.98, 0.98);
             break;
         case '15':
-            mesh.geometry = new THREE.BoxGeometry(1, 1, 1, 5, 5, 5);
+            scale.set(1, 1, 1);
             break;
         case '16':
-            mesh.geometry = new THREE.BoxGeometry(1.3, 1.3, 1.3, 5, 5, 5);
+            scale.set(1.02, 1.02, 1.02);
             break;
         case '17':
-            mesh.geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5, 5, 5, 5);
+            scale.set(1.04, 1.04, 1.04);
             break;
     }
+
+    var rims = new Array()
+    rims.push(scene.getObjectByName("Wheel_FL_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_FR_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_RL_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_RR_RIMMUSCLE_01_0"))
+    rims.forEach(rim => {
+        console.log(rim.scale)
+        rim.scale.copy(scale);
+    });
 }
 
 tick();
 
-console.log(scene)
 
+window.onload = () => {
+    resize()
+    console.log(scene)
 
-// GUI
-// const gui = new dat.GUI({ closed: true, width: 400 });
-// const cameraFolder = gui.addFolder('Camera')
-// cameraFolder.add(camera.position, 'x', 0, 10)
-// cameraFolder.add(camera.position, 'y', 0, 10)
-// cameraFolder.add(camera.position, 'z', 0, 10)
-// cameraFolder.open()
-// const sceneFolder = gui.addFolder('scene')
-// sceneFolder.add(scene.position, 'z', 0, 10)
-// sceneFolder.open()
+}
