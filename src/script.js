@@ -116,7 +116,7 @@ gltfLoader.load(
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 2000)
-camera.position.set(0, 0, 2)
+camera.position.set(4.5, -1, 0.2)
 scene.add(camera)
 
 // Controls 
