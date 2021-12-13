@@ -109,5 +109,13 @@ body,
     left: 40%;
     font-size: 6em;
     font-weight: bolder;
+    color: #2d383c;
     /* transform: translate(50%,-50%); */
+}
+
+@media (max-width: 700px) {
+    .scrollable {
+        max-width: 20em;
+        overflow:auto;
+    }
 }

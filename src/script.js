@@ -114,6 +114,10 @@ gltfLoader.load(
 	}
 );
 
+// Axes Helper
+// const axesHelper = new THREE.AxesHelper( 5 );
+// scene.add( axesHelper );
+
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 2000)
 camera.position.set(4.5, -1, 0.2)
@@ -138,19 +142,30 @@ const tick = () => {
 // Selector events
 window.changeColorBody = function(color) {
     var material;
-    var texture;
 
     switch(color) {
         case 'red':
-            scene.children[3].children[0].material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            material = new THREE.MeshBasicMaterial({ color: 0xE81e1e, side: THREE.FrontSide });
             break;
         case 'yellow':
-            scene.children[3].children[0].material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            material = new THREE.MeshBasicMaterial({ color: 0xE1e41e, side: THREE.FrontSide });
             break;
         case 'green':
-            scene.children[3].children[0].material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            material = new THREE.MeshBasicMaterial({ color: 0x47c316, side: THREE.FrontSide });
+            break;
+        case 'white':
+            material = new THREE.MeshBasicMaterial({ color: 0xF9f9f9, side: THREE.FrontSide });
+            break;
+        case 'black':
+            material = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
             break;
     }
+
+    var body = new Array()
+    body.push(scene.getObjectByName("Body_body_0"), scene.getObjectByName("Hood_body_0"), scene.getObjectByName("Door_FL_body_0"), scene.getObjectByName("Door_FR_body_0"), scene.getObjectByName("Trunkdoor_body_0"), scene.getObjectByName("Bumper_rear_UCB_BOTTOM_0"))
+    body.forEach(part => {
+        part.material = material;
+    });
 }
 
 window.changeColorRim = function(color) {
@@ -168,7 +183,7 @@ window.changeColorRim = function(color) {
             material = new THREE.MeshBasicMaterial({ color: 0x000000 });
             break;
         case 'dorado':
-            material = new THREE.MeshBasicMaterial({ color: 0xDAC02A });
+            material = new THREE.MeshBasicMaterial({ color: 0xffd700 });
             break;
     }
     
@@ -180,28 +195,40 @@ window.changeColorRim = function(color) {
 }
 
 window.changeSize = function(size) {
+    var i = 0;
+    var positionX = 0;
     var scale = new Vector3;
 
     switch(size) {
         case '14':
-            scale.set(0.98, 0.98, 0.98);
+            scale.set(0.9, 0.9, 1);
+            positionX = 35
             break;
         case '15':
             scale.set(1, 1, 1);
+            positionX = 0
             break;
         case '16':
-            scale.set(1.02, 1.02, 1.02);
+            scale.set(1.1, 1.1, 1);
+            positionX = -35
             break;
         case '17':
-            scale.set(1.04, 1.04, 1.04);
+            scale.set(1.2, 1.2, 1);
+            positionX = -70
             break;
     }
 
     var rims = new Array()
     rims.push(scene.getObjectByName("Wheel_FL_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_FR_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_RL_RIMMUSCLE_01_0"), scene.getObjectByName("Wheel_RR_RIMMUSCLE_01_0"))
     rims.forEach(rim => {
-        console.log(rim.scale)
-        rim.scale.copy(scale);
+        if(i<2) {
+            rim.scale.copy(scale);
+        } else {
+            rim.scale.copy(scale);
+            rim.position.x = positionX;
+            console.log(rim.position)
+        }
+        i++
     });
 }
 
@@ -211,5 +238,4 @@ tick();
 window.onload = () => {
     resize()
     console.log(scene)
-
 }
